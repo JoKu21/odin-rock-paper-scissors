@@ -40,41 +40,41 @@ function game(playerPoints, computerPoints) {
         }
     }
 
-    for(let i=0; i<5; i++) {
+    for(let i=1; i<=5; i++) {
+        //Computer Selection
+        const computerSelection = getComputerChoice();
+        
         //PlayerSelection
         let playerSelection = prompt("Rock, Paper, Scissor");
         playerSelection = playerSelection.toLowerCase();
-        //Computer Selection
-        const computerSelection = getComputerChoice();
 
         //Function gameResult
         function gameResult(){
             if(playRound(playerSelection,computerSelection) === "You win! Paper beats Rock!" || playRound(playerSelection,computerSelection) === "You win! Scissor beats Paper!" || playRound(playerSelection,computerSelection) === "You win! Rock beats Scissor!"){
-                playerPoints = playerPoints + 1;
+                playerPoints ++;
                 console.log("Player Score: " + playerPoints);
                 return playerPoints;
             }else if (playRound(playerSelection,computerSelection) === `Even! You both picked ${playerSelection}!`){
                 console.log("Tie! No Points!");
             } else {
-                computerPoints = computerPoints + 1;
+                computerPoints ++;
                 console.log("Computer Score: " + computerPoints);
                 return computerPoints;
             }
-            
-            
         }
-
+    
         //Output
+        console.log(`Round: ${i}`);
         console.log(playRound(playerSelection, computerSelection));
         gameResult (playerScore,computerScore);
-        
+    
     }
 
     if (playerPoints > computerPoints) {
-        console.log(`Player Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nPlayer won!`);
+        console.log(`Final Result\nPlayer Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nPlayer won!`);
     } else if (playerPoints < computerPoints) {
-        console.log(`Player Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nComputer won!`);
+        console.log(`Final Result\nPlayer Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nComputer won!`);
     } else {
-        console.log(`Player Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nEven. Good game both of you!`);
+        console.log(`Final Result\nPlayer Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nEven. Good game both of you!`);
     }
 }
