@@ -1,3 +1,9 @@
+let playerScore = 0;
+let computerScore = 0;
+
+//Call the game
+game(playerScore, computerScore);
+
 //Create a random number, multiply by 3 and add 1 -> possible results: 1,2,3
 // If 1 -> Rock | If 2 -> Paper | If 3 -> Scissor
 function getComputerChoice () {
@@ -11,42 +17,64 @@ function getComputerChoice () {
     }
 }
 
-
-//Play one round -> playerSelection is fix
-function playRound(playerSelection, computerSelection) {
-    if(playerSelection === computerSelection) {
-        return `Even! You both picked ${playerSelection}!`;
-    }
+function game(playerPoints, computerPoints) {
     
-    if(computerSelection === "rock" && playerSelection === "paper"){
-        return "You win! Paper beats Rock!";
-    } else if (computerSelection === "paper" && playerSelection === "scissor"){
-        return "You win! Scissor beats Paper!";
-    } else if(computerSelection === "scissor" && playerSelection === "rock") {
-        return "You win! Rock beats Scissor!";
-    } else if(computerSelection === "rock" && playerSelection === "scissor") {
-        return "You Loose! Rock beats Scissor!";
-    } else if(computerSelection === "paper" && playerSelection === "Rock") {
-        return "You Loose! Paper beats Rock!";
+    //Play one round -> playerSelection is fix
+    function playRound(playerSelection, computerSelection) {
+        if(playerSelection === computerSelection) {
+            return `Even! You both picked ${playerSelection}!`;
+        }
+        
+        if(computerSelection === "rock" && playerSelection === "paper"){
+            return "You win! Paper beats Rock!";
+        } else if (computerSelection === "paper" && playerSelection === "scissor"){
+            return "You win! Scissor beats Paper!";
+        } else if(computerSelection === "scissor" && playerSelection === "rock") {
+            return "You win! Rock beats Scissor!";
+        } else if(computerSelection === "rock" && playerSelection === "scissor") {
+            return "You Loose! Rock beats Scissor!";
+        } else if(computerSelection === "paper" && playerSelection === "rock") {
+            return "You Loose! Paper beats Rock!";
+        } else if(computerSelection === "scissor" && playerSelection === "paper"){
+            return "You Loose! Scissor beats Paper!";
+        }
+    }
+
+    for(let i=0; i<5; i++) {
+        //PlayerSelection
+        let playerSelection = prompt("Rock, Paper, Scissor");
+        playerSelection = playerSelection.toLowerCase();
+        //Computer Selection
+        const computerSelection = getComputerChoice();
+
+        //Function gameResult
+        function gameResult(){
+            if(playRound(playerSelection,computerSelection) === "You win! Paper beats Rock!" || playRound(playerSelection,computerSelection) === "You win! Scissor beats Paper!" || playRound(playerSelection,computerSelection) === "You win! Rock beats Scissor!"){
+                playerPoints = playerPoints + 1;
+                console.log("Player Score: " + playerPoints);
+                return playerPoints;
+            }else if (playRound(playerSelection,computerSelection) === `Even! You both picked ${playerSelection}!`){
+                console.log("Tie! No Points!");
+            } else {
+                computerPoints = computerPoints + 1;
+                console.log("Computer Score: " + computerPoints);
+                return computerPoints;
+            }
+            
+            
+        }
+
+        //Output
+        console.log(playRound(playerSelection, computerSelection));
+        gameResult (playerScore,computerScore);
+        
+    }
+
+    if (playerPoints > computerPoints) {
+        console.log(`Player Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nPlayer won!`);
+    } else if (playerPoints < computerPoints) {
+        console.log(`Player Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nComputer won!`);
     } else {
-        return "You Loose! Scissor beats Paper!";
+        console.log(`Player Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nEven. Good game both of you!`);
     }
 }
-
-//PlayerSelection
-let playerSelection = prompt("Rock, Paper, Scissor");
-playerSelection = playerSelection.toLowerCase();
-//Computer Selection
-const computerSelection = getComputerChoice();
-
-
-//Game-Section
-function game() {
-    for(let i=1; i<=5; i++) {
-
-    }
-}
-
-
-//Output
-console.log(playRound(playerSelection, computerSelection));
