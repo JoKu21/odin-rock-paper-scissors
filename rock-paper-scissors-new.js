@@ -1,3 +1,5 @@
+/* Just removed play 5 rounds logic with comments */
+
 let playerScore = 0;
 let computerScore = 0;
 
@@ -40,7 +42,7 @@ function game(playerPoints, computerPoints) {
         }
     }
 
-    for(let i=1; i<=5; i++) {
+   // for(let i=1; i<=5; i++) {
         //Computer Selection
         const computerSelection = getComputerChoice();
         
@@ -64,11 +66,11 @@ function game(playerPoints, computerPoints) {
         }
     
         //Output
-        console.log(`Round: ${i}`);
+        //console.log(`Round: ${i}`);
         console.log(playRound(playerSelection, computerSelection));
         gameResult (playerScore,computerScore);
     
-    }
+    //}
 
     if (playerPoints > computerPoints) {
         console.log(`Final Result\nPlayer Points: ${playerPoints}\nComputer Points: ${computerPoints}\n\nPlayer won!`);
