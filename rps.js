@@ -3,6 +3,7 @@ let playerScore = 0;
 let computerScore = 0;
 let playerSelection;
 let computerSelection;
+let rounds = 0; //initialize check-variable
 
 //Implement Buttons
 const rock = document.getElementById('rock');
@@ -20,36 +21,69 @@ function createComputerSelection() {
         return compChoice = 'scissor'
     }
 }
-
-//Create PlayerSelection
-function createPlayerSelection () {
     rock.addEventListener('click', () => {
-        playerSelection = 'rock';
-        console.log(playerSelection);
-        check = 1;
-        playRound(playerSelection, computerSelection);
+        rounds++;
+        if(rounds < 5) {
+            playerSelection = 'rock';
+            console.log(playerSelection);
+            computerSelection = createComputerSelection();
+            console.log(computerSelection);
+            game(playerSelection, computerSelection);
+            
+            console.log(rounds);
+        } else {
+            console.log(rounds);
+            findWinner(playerScore, computerScore);
+        }
     });
 
     paper.addEventListener('click', () => {
-        playerSelection = 'paper';
-        console.log(playerSelection);
-        check = 1;
-        playRound(playerSelection, computerSelection);
+        rounds++;
+        if(rounds < 5) {
+            playerSelection = 'paper';
+            console.log(playerSelection);
+            computerSelection = createComputerSelection();
+            console.log(computerSelection);
+            game(playerSelection, computerSelection);
+            
+            console.log(rounds);
+        } else {
+            console.log(rounds);
+            findWinner(playerScore, computerScore);
+        }
     });
 
     scissor.addEventListener('click', () => {
-        playerSelection = 'scissor';
-        console.log(playerSelection);
-        check = 1;
-        playRound(playerSelection, computerSelection);
-    });
+        rounds++;
+        if(rounds < 5) {
+            playerSelection = 'scissor';
+            console.log(playerSelection);
+            computerSelection = createComputerSelection();
+            console.log(computerSelection);
+            game(playerSelection, computerSelection);
+            
+            console.log(rounds);
+        } else {
+            console.log(rounds);
+            findWinner(playerScore, computerScore);
+        }
+    });   
+
+    
+
+
+
+function game(playerScore, computerScore) {
+    playRound(playerSelection, computerSelection);
+    gameResult(playerSelection, computerSelection);
+    //findWinner(playerScore, computerScore);
 }
 
 //Play 1 round
 function playRound(playerSelection, computerSelection) {
     if(playerSelection === computerSelection) {
         return `Even! You both picked ${computerSelection}!`;
-    } 
+    }
     
     if(computerSelection === "rock" && playerSelection === "paper"){
         return "You win! Paper beats Rock!";
@@ -81,30 +115,13 @@ function gameResult(playerSelection,computerSelection){
     }
 }
 
-//Algorithm for game (playing 5 rounds)
-function game(playerScore, computerScore) {
-    //Start loop for 5 rounds
-    for(let i = 1; i <= 5; i++) {
-        playerSelection = createPlayerSelection(); //get PlayerSelection
-        computerSelection = createComputerSelection(); //get ComputerSelection
-
-        console.log(computerSelection); //Test CompChoice
-
-        console.log(`Round: ${i}`);
-        console.log(playRound(playerSelection,computerSelection));
-        }
-
-        gameResult (playerScore,computerScore);
-    }
-
-//Start Game
-game(playerScore, computerScore);
-
 //Find Winnner
-if (playerScore > computerScore) {
-    console.log(`Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nPlayer won!`);
-} else if (playerScore < computerScore) {
-    console.log(`Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nComputer won!`);
-} else {
-    console.log(`Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nEven. Good game both of you!`);
+function findWinner(playerScore, computerScore) {
+    if (playerScore > computerScore) {
+        console.log(`Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nPlayer won!`);
+    } else if (playerScore < computerScore) {
+        console.log(`Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nComputer won!`);
+    } else {
+        console.log(`Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nEven. Good game both of you!`);
+    }
 }
