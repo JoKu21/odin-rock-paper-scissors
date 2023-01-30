@@ -49,7 +49,7 @@ function createPlayerSelection () {
 function playRound(playerSelection, computerSelection) {
     if(playerSelection === computerSelection) {
         return `Even! You both picked ${computerSelection}!`;
-    }
+    } 
     
     if(computerSelection === "rock" && playerSelection === "paper"){
         return "You win! Paper beats Rock!";
