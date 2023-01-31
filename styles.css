@@ -1,8 +1,10 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3rem;
+    margin-top: 3rem;
 }
 
 button {
@@ -11,4 +13,14 @@ button {
     color: white;
     font-size: large;
     font-weight: bold;
+}
+
+#output {
+    display: flex;
+    background-color: lightslategray;
+    color: white;
+    min-height: 10rem;
+    width: 10rem;
+    margin: 0 auto;
+    padding: 1rem 2rem;
 }
