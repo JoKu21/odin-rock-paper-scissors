@@ -3,8 +3,20 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
-    margin-top: 3rem;
+    gap: 6rem;
+    margin-top: 1rem;
+    background-color: rgb(41, 39, 39);
+}
+
+#headline {
+    font-family: 'Aboreto', cursive;
+    font-size: 3rem;
+    text-align: center;
+    color: aliceblue;
+}
+
+#title {
+    font-size: 5rem;
 }
 
 button {
@@ -13,14 +25,23 @@ button {
     color: white;
     font-size: large;
     font-weight: bold;
+    margin: 0 2rem;
+    font-size: 2rem;
+    height: 4rem;
+    width: 6rem;
+    text-align: center;
+    border-radius: 3px;
 }
 
 #output {
     display: flex;
+    flex-direction: column;
     background-color: lightslategray;
     color: white;
     min-height: 10rem;
-    width: 10rem;
+    width: 15rem;
     margin: 0 auto;
     padding: 1rem 2rem;
+    border: 2px solid aliceblue;
+    text-align: center;
 }
