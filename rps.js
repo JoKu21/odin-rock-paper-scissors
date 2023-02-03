@@ -37,7 +37,7 @@ newGame.addEventListener('click', () => {
 });
 
 //Create function to display result per round in outputDiv
-function showRoundResult(playerScoreVariable, computerScoreVariable) {
+function showRoundResult(playerScoreVariable, computerScoreVariable, playerName) {
     //Clear Screen
     outputDiv.textContent = '';
     outputDiv.style.cssText = 'text-align: center; font-size: 1rem; ';
@@ -51,7 +51,7 @@ function showRoundResult(playerScoreVariable, computerScoreVariable) {
     //Player Selection
     const playerSelectionOutput = document.createElement('p');
     playerSelectionOutput.style.cssText = 'margin-top: -0.5rem;';
-    playerSelectionOutput.textContent = `Player Selection: ${playerSelection}`;
+    playerSelectionOutput.textContent = `${playerName} Selection: ${playerSelection}`;
     outputDiv.appendChild(playerSelectionOutput);
 
     //Computer Selection
@@ -62,7 +62,7 @@ function showRoundResult(playerScoreVariable, computerScoreVariable) {
 
     //Player Score
     const playerScoreOutput = document.createElement('p');
-    playerScoreOutput.textContent = `Player Score: ${playerScoreVariable}`;
+    playerScoreOutput.textContent = `${playerName} Score: ${playerScoreVariable}`;
     outputDiv.appendChild(playerScoreOutput);
 
     //Computer Score
@@ -93,7 +93,7 @@ function showTie(rounds){
 }
 
 
-function showFinalResult(playerScoreVariable, computerScoreVariable) {
+function showFinalResult(playerScoreVariable, computerScoreVariable, playerName) {
     //Clear Screen and set final Result
     outputDiv.textContent = '';
 
@@ -106,7 +106,7 @@ function showFinalResult(playerScoreVariable, computerScoreVariable) {
     //Player Score
     const playerScoreOutput = document.createElement('p');
     playerScoreOutput.style.cssText = 'margin-top: -0.5rem;';
-    playerScoreOutput.textContent = `Player Score: ${playerScoreVariable}`;
+    playerScoreOutput.textContent = `${playerName} Score: ${playerScoreVariable}`;
     outputDiv.appendChild(playerScoreOutput);
 
     //Computer Score
@@ -138,9 +138,9 @@ function createComputerSelection() {
             playerSelection = 'rock';
             computerSelection = createComputerSelection();
             game(playerSelection, computerSelection);
-            showRoundResult(playerScore, computerScore);
+            showRoundResult(playerScore, computerScore, playerName);
         } else {
-            showFinalResult(playerScore, computerScore);
+            showFinalResult(playerScore, computerScore, playerName);
         }
         rounds++;
         if(rounds == 6) {
@@ -153,9 +153,9 @@ function createComputerSelection() {
             playerSelection = 'paper';
             computerSelection = createComputerSelection();
             game(playerSelection, computerSelection);
-            showRoundResult(playerScore, computerScore);
+            showRoundResult(playerScore, computerScore, playerName);
         } else {
-            showFinalResult(playerScore, computerScore);
+            showFinalResult(playerScore, computerScore, playerName);
         }
         rounds++;
         if(rounds == 6) {
@@ -168,9 +168,9 @@ function createComputerSelection() {
             playerSelection = 'scissor';
             computerSelection = createComputerSelection();
             game(playerSelection, computerSelection);
-            showRoundResult(playerScore, computerScore);
+            showRoundResult(playerScore, computerScore, playerName);
         } else {
-            showFinalResult(playerScore, computerScore);
+            showFinalResult(playerScore, computerScore, playerName);
         }
         rounds++;
         if(rounds == 6) {
@@ -195,7 +195,7 @@ function changeButtonText() {
 
 function game(playerSelection, computerSelection) {
     playRound(playerSelection, computerSelection);
-    gameResult(playerSelection, computerSelection, rounds);
+    gameResult(playerSelection, computerSelection);
     //findWinner(playerScore, computerScore);
 }
 
@@ -221,7 +221,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 //Function gameResult
-function gameResult(playerSelection,computerSelection,rounds){
+function gameResult(playerSelection,computerSelection){
     if(playRound(playerSelection, computerSelection) === "You win! Paper beats Rock!" || playRound(playerSelection,computerSelection) === "You win! Scissor beats Paper!" || playRound(playerSelection,computerSelection) === "You win! Rock beats Scissor!"){
         playerScore ++;
         //console.log("Player Score: " + playerScore);
@@ -238,7 +238,7 @@ function gameResult(playerSelection,computerSelection,rounds){
 //Find Winnner
 function findWinner(playerScore, computerScore) {
     if (playerScore > computerScore) {
-        return 'Player won!';
+        return `${playerName} won!`;
     } else if (playerScore < computerScore) {
         return 'Computer won!';
     } else {
