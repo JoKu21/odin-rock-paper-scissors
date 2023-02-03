@@ -5,6 +5,9 @@ let playerSelection;
 let computerSelection;
 let rounds = 1; //initialize check-variable
 
+//Player name
+const playerName = prompt("What's your name?");
+
 //Implement Buttons
 const rock = document.getElementById('rock');
 const paper = document.getElementById('paper');
@@ -12,11 +15,32 @@ const scissor = document.getElementById('scissor');
 
 //Implement Output Div
 const outputDiv = document.getElementById('output');
+outputDiv.textContent = `Welcome ${playerName}`;
+outputDiv.style.cssText = 'text-align: center; font-size: 2rem; ';
+
+//New Game
+const newGame = document.getElementById('newGame');
+newGame.addEventListener('click', () => {
+    outputDiv.textContent = '';
+    outputDiv.style.cssText = 'text-align: center; font-size: 1rem; ';
+
+    const welcomeMessage = document.createElement('p');
+    welcomeMessage.style.cssText = 'text-align: center; font-size: 2rem; margin: auto';
+    welcomeMessage.textContent = `Welcome ${playerName}`;
+    outputDiv.appendChild(welcomeMessage);
+    
+    playerScore = 0;
+    computerScore = 0;
+    playerSelection;
+    computerSelection;
+    rounds = 1;
+});
 
 //Create function to display result per round in outputDiv
 function showRoundResult(playerScoreVariable, computerScoreVariable) {
     //Clear Screen
     outputDiv.textContent = '';
+    outputDiv.style.cssText = 'text-align: center; font-size: 1rem; ';
     
     //Show Round
     const roundsOutput = document.createElement('p');
@@ -46,6 +70,56 @@ function showRoundResult(playerScoreVariable, computerScoreVariable) {
     computerScoreOutput.style.cssText = 'margin-top: -1rem;';
     computerScoreOutput.textContent = `Computer Score: ${computerScoreVariable}`;
     outputDiv.appendChild(computerScoreOutput);
+
+    if(playerSelection == computerSelection) {
+        showTie(rounds);
+    }
+}
+
+function showTie(rounds){
+    //Show Round
+    outputDiv.textContent = '';
+
+    const roundsOutput = document.createElement('p');
+    roundsOutput.style.cssText = 'font-size: 1.5rem;'
+    roundsOutput.textContent = `Round: ${rounds}`;
+    outputDiv.appendChild(roundsOutput);
+
+    //Show Tie
+    const showTie = document.createElement('p');
+    showTie.style.cssText = 'font-size: 1.25rem;'
+    showTie.textContent = 'Tie! No points!';
+    outputDiv.appendChild(showTie);
+}
+
+
+function showFinalResult(playerScoreVariable, computerScoreVariable) {
+    //Clear Screen and set final Result
+    outputDiv.textContent = '';
+
+    //finalHeadline
+    const finalHeadline = document.createElement('p');
+    finalHeadline.style.cssText = 'font-size: 1.5rem;'
+    finalHeadline.textContent = 'Final Result';
+    outputDiv.appendChild(finalHeadline);
+
+    //Player Score
+    const playerScoreOutput = document.createElement('p');
+    playerScoreOutput.style.cssText = 'margin-top: -0.5rem;';
+    playerScoreOutput.textContent = `Player Score: ${playerScoreVariable}`;
+    outputDiv.appendChild(playerScoreOutput);
+
+    //Computer Score
+    const computerScoreOutput = document.createElement('p');
+    computerScoreOutput.style.cssText = 'margin-top: -1rem;';
+    computerScoreOutput.textContent = `Computer Score: ${computerScoreVariable}`;
+    outputDiv.appendChild(computerScoreOutput);
+
+    //Add paragraph with final result
+    const finalResult = document.createElement('p');
+    finalResult.style.cssText = 'color: red; font-size: 1.5rem; text-shadow: 0 0 5px aliceblue;';
+    finalResult.textContent = findWinner(playerScore, computerScore);
+    outputDiv.appendChild(finalResult);
 }
 
 //Create computerSelection
@@ -60,65 +134,68 @@ function createComputerSelection() {
     }
 }
     rock.addEventListener('click', () => {
-        if(rounds <= 5) {
+        if(rounds < 6) {
             playerSelection = 'rock';
-            //console.log(playerSelection);
             computerSelection = createComputerSelection();
-            //console.log(computerSelection);
             game(playerSelection, computerSelection);
             showRoundResult(playerScore, computerScore);
-            //console.log(rounds);
         } else {
-            //console.log(rounds);
-            outputDiv.textContent = findWinner(playerScore, computerScore);
-            //findWinner(playerScore, computerScore);
+            showFinalResult(playerScore, computerScore);
         }
         rounds++;
+        if(rounds == 6) {
+            changeButtonText();
+        }
     });
 
-    /*Continue here:
-    - add findWinner to other buttons
-    - add find winner message in nice css after Round 5 with an effect */
-
     paper.addEventListener('click', () => {
-        if(rounds <= 5) {
+        if(rounds < 6) {
             playerSelection = 'paper';
-            //console.log(playerSelection);
             computerSelection = createComputerSelection();
-            //console.log(computerSelection);
             game(playerSelection, computerSelection);
             showRoundResult(playerScore, computerScore);
-            //console.log(rounds);
         } else {
-            console.log(rounds);
-            findWinner(playerScore, computerScore);
+            showFinalResult(playerScore, computerScore);
         }
         rounds++;
+        if(rounds == 6) {
+            changeButtonText();
+        }
     });
 
     scissor.addEventListener('click', () => {
-        if(rounds <= 5) {
+        if(rounds < 6) {
             playerSelection = 'scissor';
-            //console.log(playerSelection);
             computerSelection = createComputerSelection();
-            //console.log(computerSelection);
             game(playerSelection, computerSelection);
             showRoundResult(playerScore, computerScore);
-            //console.log(rounds);
         } else {
-            console.log(rounds);
-            findWinner(playerScore, computerScore);
+            showFinalResult(playerScore, computerScore);
         }
         rounds++;
+        if(rounds == 6) {
+            changeButtonText();
+        }
     });   
 
+function changeButtonText() {
+    //Change textContent
+    rock.textContent = 'Result';
+    paper.textContent = 'Result';
+    scissor.textContent = 'Result';
+
+    //change CSS
+    rock.style.cssText = 'font-size: 1rem; color: red;';
+    paper.style.cssText = 'font-size: 1rem; color: red;';
+    scissor.style.cssText = 'font-size: 1rem; color: red;';
     
+}    
 
 
 
-function game(playerScore, computerScore) {
+function game(playerSelection, computerSelection) {
     playRound(playerSelection, computerSelection);
-    gameResult(playerSelection, computerSelection);
+    gameResult(playerSelection, computerSelection, rounds);
     //findWinner(playerScore, computerScore);
 }
 
@@ -144,15 +221,14 @@ function playRound(playerSelection, computerSelection) {
 }
 
 //Function gameResult
-function gameResult(playerSelection,computerSelection){
+function gameResult(playerSelection,computerSelection,rounds){
     if(playRound(playerSelection, computerSelection) === "You win! Paper beats Rock!" || playRound(playerSelection,computerSelection) === "You win! Scissor beats Paper!" || playRound(playerSelection,computerSelection) === "You win! Rock beats Scissor!"){
         playerScore ++;
         //console.log("Player Score: " + playerScore);
         return playerScore;
-    }else if (playRound(playerSelection,computerSelection) === `Even! You both picked ${computerSelection}!`){
-        console.log('Tie! No points!');
-        //return false;
-    } else {
+    }else if(playerSelection == computerSelection){
+        return 'Tie! No Points!';
+    }else {
         computerScore ++;
         //console.log("Computer Score: " + computerScore);
         return computerScore;
@@ -162,10 +238,10 @@ function gameResult(playerSelection,computerSelection){
 //Find Winnner
 function findWinner(playerScore, computerScore) {
     if (playerScore > computerScore) {
-        return `Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nPlayer won!`;
+        return 'Player won!';
     } else if (playerScore < computerScore) {
-        return `Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nComputer won!`;
+        return 'Computer won!';
     } else {
-        return `Final Result\nPlayer Points: ${playerScore}\nComputer Points: ${computerScore}\n\nEven. Good game both of you!`;
+        return 'Even. Good game both of you!';
     }
 }
